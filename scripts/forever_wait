@@ -1,7 +1,23 @@
 #!/usr/bin/env bash
+
+# dots ...
+# yellow txt on black bg,   brigth style
+# [1;33;40m
+
+# dashes ___
+# red txt on black bg,      dim style
+# [2;31;40m
+
+# txt formating
+# -n flag:  to not put new line char @ the end of output
+# -e flag:  to interpret txt formating
+    
+# \033      starts formating
+# \033[0m   ends formating
+
 clear #clear screen
 
-while [[ 1 ]]
+while [[ 1 ]] #infinite loop
 do
     echo -e -n "\033[1;33;40m ... \033[0m \r"
     sleep 1 #seconds
@@ -15,5 +31,4 @@ echo -e -n "\033[1;33;40m .\033[0m\033[2;31;40m__ \033[0m \r"
     sleep 1
 echo -e -n "\033[1;33;40m ..\033[0m\033[2;31;40m_ \033[0m \r"    
     sleep 1
-    i=1
 done
