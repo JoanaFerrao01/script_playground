@@ -15,20 +15,20 @@
 # \033      starts formating
 # \033[0m   ends formating
 
+end="\033[0m"
+dots="\033[1;33;40m"
+dashes="\033[2;31;40m"
+
 clear #clear screen
 
 while [[ 1 ]] #infinite loop
 do
-    echo -e -n "\033[1;33;40m ... \033[0m \r"
+    echo -e -n $dots" ... "$end"\r"
     sleep 1 #seconds
-    echo -e -n "\033[2;31;40m _\033[0m\033[1;33;40m.. \033[0m \r"
-    sleep 1
-    echo -e -n "\033[2;31;40m __\033[0m\033[1;33;40m. \033[0m \r"
-    sleep 1
-    echo -e -n "\033[2;31;40m ___ \033[0m \r"
-    sleep 1
-echo -e -n "\033[1;33;40m .\033[0m\033[2;31;40m__ \033[0m \r"
-    sleep 1
-echo -e -n "\033[1;33;40m ..\033[0m\033[2;31;40m_ \033[0m \r"    
-    sleep 1
+    echo -e -n $dashes" _"$end$dots".. "$end"\r"; sleep 1
+    echo -e -n $dashes" __"$end$dots". "$end"\r"; sleep 1
+    echo -e -n $dashes" ___ "$end"\r"; sleep 1
+    echo -e -n $dots" ."$end$dashes"__ "$end"\r"; sleep 1
+    echo -e -n $dots" .."$end$dashes"_ "$end"\r"; sleep 1
+
 done
