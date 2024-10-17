@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+begin="\033["
+end="\033[0m"
+sprite="\033[1;33m"
+
+draw(){
+    clear
+    echo -en $begin"${y};${x}H"$sprite
+    echo -e "\`-😃-´"$end
+    echo -en $begin"$((${y} + 1));${x}H"$sprite
+    echo -e "  --  "$end
+}
+
+clear
+
+declare -i maxY=$(tput lines)
+declare -i maxX=$(tput cols)
+
+declare -i x=0
+declare -i y=1
+
+
+
+declare -l input=""
+
+while (( 1 ))
+do
+
+read -s -N 1 input
+sleep 0.01
+
+if [[ $input =~ "a" ]]; then
+    ((x>0)) && ((x--)) 
+    draw
+
+elif [[ $input =~ "d" ]]; then
+    [[ $x -lt $maxX ]] && ((x++)) 
+    draw
+
+elif [[ $input =~ "w" ]]; then
+    ((y>0)) && ((y--)) 
+    draw
+
+elif [[ $input =~ "s" ]]; then
+    [[ $y -lt $maxY ]] && ((y++))
+    draw
+
+fi
+
+done
