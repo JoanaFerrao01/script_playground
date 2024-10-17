@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+clear #clear screen
+
+while [[ 1 ]]
+do
+    echo -e -n "\033[1;33;40m ... \033[0m \r"
+    sleep 1 #seconds
+    echo -e -n "\033[2;31;40m _\033[0m\033[1;33;40m.. \033[0m \r"
+    sleep 1
+    echo -e -n "\033[2;31;40m __\033[0m\033[1;33;40m. \033[0m \r"
+    sleep 1
+    echo -e -n "\033[2;31;40m ___ \033[0m \r"
+    sleep 1
+echo -e -n "\033[1;33;40m .\033[0m\033[2;31;40m__ \033[0m \r"
+    sleep 1
+echo -e -n "\033[1;33;40m ..\033[0m\033[2;31;40m_ \033[0m \r"    
+    sleep 1
+    i=1
+done
