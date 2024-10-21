@@ -62,11 +62,11 @@ draw(){
     clear
     
     #menu
-    printCentered $begin"\["$black"███"$end"] | ["$red"███"$end"] | ["$green"███"$end"] | ["$yellow"███"$end"] | ["$blue"███"$end"] | ["$magenta"███"$end"] | ["$cyan"███"$end"] | ["$white"███"$end"]"$end
+    printCentered $begin"\["$black"███"$end"] ["$red"███"$end"] ["$green"███"$end"] ["$yellow"███"$end"] ["$blue"███"$end"] ["$magenta"███"$end"] ["$cyan"███"$end"] ["$white"███"$end"]"$end
 
     echo
 
-    printCentered $begin" \[███] | [▓▓▓] | [▒▒▒] | [░░░]"$end
+    printCentered $begin" \[███] [▓▓▓] [▒▒▒] [░░░]"$end
    
     repeatPrint "▬" $maxX
 
