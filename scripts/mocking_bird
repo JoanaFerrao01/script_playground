@@ -6,7 +6,7 @@ echo please write an argument...
 else
 echo -e "
      _
-    ('< ˎˊ˗ $1 
+    ('< ˎˊ˗ $@ 
    /_)  
   /|| \n"
 fi
