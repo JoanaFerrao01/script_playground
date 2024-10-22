@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
+if [[ -z $1 ]]
+then
+echo please write an argument...
+else
 echo -e "
      _
     ('< ˎˊ˗ $1 
    /_)  
   /|| \n"
+fi
