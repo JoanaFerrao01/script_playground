@@ -1,0 +1,15 @@
+#!/bin/bash
+
+declare -r begin="\033["
+declare -r end="\033[0m"
+
+declare -r title="\e[0;96m"
+declare -r desc="\e[0;37m"
+
+mapfile -t wd < <(curl -s "https://api.openweathermap.org/data/2.5/weather?q=coimbra&appid=80e7dc30b68c0b893cda0bb239d804ce&units=metric" | jq '.weather[0].main , .weather[0].description , .main["temp","feels_like","temp_min","temp_max","humidity"], .wind.speed , .clouds.all , .rain["1h"]' -r) 
+
+echo -en $title"\n${wd[0]^}"$end$desc"\n${wd[1]^}\n"$end
+echo -en "${wd[2]}º, feels like ${wd[3]}º\n" # \t [${wd[4]}º to ${wd[5]}º]\n"
+echo -en "Humidity: ${wd[6]}%"
+[[ $wd[9] -eq null ]] && echo -en "\n" || echo -en " \t Rain: ${wd[9]}mm/h\n"
+echo -e "Wind: ${wd[7]}m/s \t Clouds: ${wd[8]}%\n"
