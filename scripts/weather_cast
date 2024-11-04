@@ -1,8 +1,6 @@
 #!/bin/bash
 
-declare -r begin="\033["
 declare -r end="\033[0m"
-
 declare -r title="\e[0;96m"
 declare -r desc="\e[0;37m"
 
