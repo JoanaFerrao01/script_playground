@@ -7,6 +7,14 @@ declare -ir r=$(($RANDOM % 255))
 declare -ir g=$(($RANDOM % 255))
 declare -ir b=$(($RANDOM % 255))
 
+repeatPrint(){
+    local char=$1
+    declare -i times=$2
+
+    for i in $(seq 1 $times); do echo -ne  "$char"; done
+}
+
+
 clear;
 echo -en "\033[48;2;${r};${g};${b}m"
 for l in $(seq 1 $y); do
@@ -14,4 +22,24 @@ for l in $(seq 1 $y); do
 		echo -en " "
 	done
 done
+
+
+
+declare -i my=$((y/2))
+declare -i mx=$((x/2 - 11)) # 11= 3+1+3+1+3 (3 ints separated by 1 space)
+
+#oposite colors for the leters
+declare fgR=$((255-r))
+declare fgG=$((255-g))
+declare fgB=$((255-b))
+
+#puts cursor at coords my mx
+tput cup $my $mx
+ echo -en "\033[38;2;${fgR};${fgG};${fgB}m \033[48;2;${r};${g};${b}m" 
+ printf "%03d %03d %03d" $r $g $b
+ echo -en "\033[0"
+
+ #return cursor to last line
+tput cup $y 1
 echo -e "\033[0m"
+
