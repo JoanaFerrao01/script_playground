@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+declare -i y=$(tput lines)
+declare -i x=$(tput cols)
+
+if [ "$#" -ne 2 ]; then
+	echo "usage: ./random_palette_gen -n <number of colors>"; exit 1;
+fi
+
+while getopts n: flag
+do
+    case "${flag}" in
+        n) n_colors=${OPTARG};;
+    esac
+done
+
+if [[ $n_colors -gt $x ]]; then
+	echo "error: number of colors must be less than "$x
+	exit 1
+fi
+
+
+
+repeatPrint(){
+    local r=$1
+    local g=$2
+    local b=$3     
+    declare -i times=$4
+
+    for i in $(seq 1 $times); do
+	echo -en "\033[48;2;${r};${g};${b}m \033[0m"
+    done
+}
+
+
+declare -i times=$((x/n_colors))
+
+declare -a colors=()
+
+for i in $(seq 1 $(( n_colors * 3 ))); do
+	colors+=($(($RANDOM % 255)))
+done
+
+clear
+
+declare -i dif=0
+declare -i as=${#colors}
+
+for l in $(seq 1 $y); do
+    dif=0
+	for nr in $(seq 1 $n_colors); do
+		repeatPrint ${colors[((nr+dif-1))]} ${colors[((nr+dif))]} ${colors[((nr+dif+1))]} $times
+        ((dif+=2))
+	done
+echo
+done
