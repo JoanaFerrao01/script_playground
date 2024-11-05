@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+declare -i y=$(tput lines)
+declare -i x=$(tput cols)
+
+declare -ir r=$(($RANDOM % 255))
+declare -ir g=$(($RANDOM % 255))
+declare -ir b=$(($RANDOM % 255))
+
+clear;
+echo -en "\033[48;2;${r};${g};${b}m"
+for l in $(seq 1 $y); do
+	for c in $(seq 0 $x); do
+		echo -en " "
+	done
+done
+echo -e "\033[0m"
