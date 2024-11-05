@@ -19,7 +19,7 @@ draw(){
 clear #clear screen 
 
 #get the terminal window size (by lines and character collumns)
-declare -i maxY=$(tput lines)
+declare -i maxY=$(tput lines)-1
 declare -i maxX=$(tput cols) 
 
 #define the actual limits, based on the side of the character
