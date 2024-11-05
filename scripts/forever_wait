@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# dots ...
+# yellow txt on black bg,   brigth style
+# [1;33;40m
+
+# dashes ___
+# red txt on black bg,      dim style
+# [2;31;40m
+
+# txt formating
+# -n flag:  to not put new line char @ the end of output
+# -e flag:  to interpret txt formating
+    
+# \033      starts formating
+# \033[0m   ends formating
+
+end="\033[0m"
+dots="\033[1;33;40m"
+dashes="\033[2;31;40m"
+
+clear #clear screen
+
+while [[ 1 ]] #infinite loop
+do
+    echo -e -n $dots" ... "$end"\r"
+    sleep 1 #seconds
+    echo -e -n $dashes" _"$end$dots".. "$end"\r"; sleep 1
+    echo -e -n $dashes" __"$end$dots". "$end"\r"; sleep 1
+    echo -e -n $dashes" ___ "$end"\r"; sleep 1
+    echo -e -n $dots" ."$end$dashes"__ "$end"\r"; sleep 1
+    echo -e -n $dots" .."$end$dashes"_ "$end"\r"; sleep 1
+
+done

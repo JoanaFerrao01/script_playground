@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+declare -i maxY=$(tput lines)
+declare -i maxX=$(tput cols) 
+
+
+declare -r begin="\033[" 
+declare -r end="\033[0m"
+
+declare -r black="\033[30m" 
+declare -r red="\033[31m" 
+declare -r green="\033[32m" 
+declare -r yellow="\033[33m" 
+declare -r blue="\033[34m" 
+declare -r magenta="\033[35m" 
+declare -r cyan="\033[36m" 
+declare -r white="\033[37m" 
+
+repeatPrint(){
+    local char=$1
+    declare -i times=$2
+
+    for i in $(seq 1 $times); do echo -ne  "$char"; done
+}
+
+stripEnconding(){
+    local str=$@
+
+    str="${str//$end}"
+    str="${str//$black}"
+    str="${str//$red}"
+    str="${str//$green}"
+    str="${str//$yellow}"
+    str="${str//$blue}"
+    str="${str//$magenta}"
+    str="${str//$cyan}"
+    str="${str//$white}"
+    str="${str//$begin}"
+    str="${str//"\\"}"
+
+    echo $str;
+}
+
+printCentered(){
+    local str=$@
+    
+    stripped_str=$(stripEnconding $str)
+
+    
+    local str_size=${#stripped_str}
+
+    local str_spaces=$maxX
+    ((str_spaces -= str_size))
+    ((str_spaces/=2))
+
+    repeatPrint ' ' $str_spaces
+    echo -ne $str
+    echo
+}
+
+draw(){
+    clear
+    
+    #menu
+    printCentered $begin"\["$black"███"$end"] ["$red"███"$end"] ["$green"███"$end"] ["$yellow"███"$end"] ["$blue"███"$end"] ["$magenta"███"$end"] ["$cyan"███"$end"] ["$white"███"$end"]"$end
+
+    echo
+
+    printCentered $begin" \[███] [▓▓▓] [▒▒▒] [░░░]"$end
+   
+    repeatPrint "▬" $maxX
+
+    #rest is drawing area!
+    
+}
+
+
+#script start:
+draw

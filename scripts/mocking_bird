@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ -z $1 ]]
+then
+  echo please write an argument...
+else
+  mock=${@,,}
+  out=""
+
+  for i in $(seq 0 $((${#mock})))
+  do
+      char="${mock:i:1}"
+      (($i % 2 == 0)) && out+="${char,,}" || out+="${char^^}"
+  done
+
+  echo -e "
+      _
+      ('< ˎˊ˗ $out
+    /_)  
+    /|| \n"
+fi
