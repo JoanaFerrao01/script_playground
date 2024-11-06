@@ -54,3 +54,38 @@ for l in $(seq 1 $y); do
 	done
 echo
 done
+
+#dont show rgb values: they dont fit
+[[ $times -lt 13 ]] && exit 0
+
+
+declare -i my=$((y/2))
+
+tput cup $my 0
+dif=0
+
+for nr in $(seq 1 $n_colors); do
+
+    r=${colors[((nr+dif-1))]}
+    g=${colors[((nr+dif))]}
+    b=${colors[((nr+dif+1))]}
+
+
+    #oposite colors for the leters
+    fgR=$((255-r))
+    fgG=$((255-g))
+    fgB=$((255-b))
+
+    tput cup $my $(((times*nr)-times/2 -6))
+    echo -en "\033[38;2;${fgR};${fgG};${fgB}m\033[48;2;${r};${g};${b}m"
+    printf "%03d %03d %03d" $r $g $b
+    echo -en "\033[0"
+
+    ((dif+=2))
+
+done
+
+
+ #return cursor to last line
+tput cup $y 1
+echo -e "\033[0m"
