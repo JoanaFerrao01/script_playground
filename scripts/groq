@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ -z $@ ]];then
+    echo "insert prompt"
+    exit 1
+fi
+
+res=$(curl -s -X POST "https://api.groq.com/openai/v1/chat/completions" \
+     -H "Authorization: Bearer $GROQ_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"messages": [{"role": "user", "content": "'$*'"}], "model": "llama3-8b-8192"}' | jq '.choices[0].message.content')
+
+echo -en "${res//\"}"
