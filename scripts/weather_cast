@@ -1,13 +1,79 @@
 #!/bin/bash
 
+declare -r begin="\033["
 declare -r end="\033[0m"
+
 declare -r title="\e[0;96m"
 declare -r desc="\e[0;37m"
 
 mapfile -t wd < <(curl -s "https://api.openweathermap.org/data/2.5/weather?q=coimbra&appid=80e7dc30b68c0b893cda0bb239d804ce&units=metric" | jq '.weather[0].main , .weather[0].description , .main["temp","feels_like","temp_min","temp_max","humidity"], .wind.speed , .clouds.all , .rain["1h"]' -r) 
 
-echo -en $title"\n${wd[0]^}"$end$desc"\n${wd[1]^}\n"$end
-echo -en "${wd[2]}º, feels like ${wd[3]}º\n" # \t [${wd[4]}º to ${wd[5]}º]\n"
+clear
+tput cup 1 18
+echo -en $title"${wd[0]^}"$end
+tput cup 2 18
+echo -en $desc"${wd[1]^}"$end
+tput cup 3 18
+echo -en "${wd[2]}º, feels like ${wd[3]}º" # \t [${wd[4]}º to ${wd[5]}º]\n"
+tput cup 4 18
 echo -en "Humidity: ${wd[6]}%"
-[[ $wd[9] -eq null ]] && echo -en "\n" || echo -en " \t Rain: ${wd[9]}mm/h\n"
-echo -e "Wind: ${wd[7]}m/s \t Clouds: ${wd[8]}%\n"
+[[ $wd[9] -eq "null" ]] && echo -en "" || echo -en " \t Rain: ${wd[9]}mm/h"
+tput cup 5 18
+echo -e "Wind: ${wd[7]}m/s \t Clouds: ${wd[8]}%"
+
+tput cup 0 0
+declare -r cloud="\033[38;2;160;160;160m"
+declare -r cloud_2="\033[38;2;100;100;100m"
+declare -r sun="\033[38;2;252;250;82m"
+declare -r rain="\033[38;2;120;207;245m"
+declare -r snow="\033[38;2;240;240;240m"
+
+case ${wd[1]} in
+
+"clear sky") 
+echo -en $sun"\n\n     ...\n    .....\n     ... \n\n"$end
+;;
+
+"few clouds")
+echo -en $sun"\n        ...."$end$cloud"\n    __ "$end$sun"......"$end$cloud"\n  ########"$end$sun".."$end$cloud"\n ###########\n  ###-#####\n"$end
+;;
+
+"scattered clouds")
+echo -en $cloud"\n   _~_   __\n  #####,####.\n ############\n *##########. \n"$end
+;;
+
+"broken clouds")
+echo -en $cloud"\n   _~_   __"$end$cloud_2"~##."$end$cloud"\n  #####,####."$end$cloud_2"##,"$end$cloud"\n ############"$end$cloud_2"\#º"$end$cloud"\n *##########.\n "$end
+;;
+
+"overcast clouds")
+echo -en $cloud"\n   _~_   __"$end$cloud_2"~##."$end$cloud"\n  #####,####."$end$cloud_2"##,"$end$cloud"\n ############"$end$cloud_2"\#º"$end$cloud"\n *##########.\n "$end
+;;
+
+"shower rain")
+echo -en $cloud"\n  #####,####.\n ############\n *##########."$end$rain"\n '  '.   ''  \n  ,   '  ' .\n"$end
+;;
+
+"rain")
+echo -en $sun"\n         .."$end$cloud"\n  _~######"$end$sun".."$end$cloud"\n ###########\n  '##-###* "$end$rain".\n '  '.  , ' \n  ' , .  ' .\n"$end
+;;
+
+"thunderstorm")
+echo -en $cloud"\n\n ############\n  #####,###."$end$sun"\n    \\\\\ \n    //\n    \|\n"$end
+;;
+
+"snow")
+echo -en $snow"\n    *   *     \n  *   *  . *  \n *  '  *   *  \n  *   .   * \n   . *   *  \n "$end
+;;
+
+"mist")
+echo -en $cloud_2"\n    . _---_   -_\n  -~^  ~  º~~-_\n   ~ __--_  ~  ,\n  ~~*  .  ^~--_\n   ..~-__-~.._\n"$end 
+;;
+
+*)
+tput cup 6 0
+;;
+
+esac
+
+echo 
