@@ -42,36 +42,41 @@ echo -en $sun"\n        ...."$end$cloud"\n    __ "$end$sun"......"$end$cloud"\n 
 echo -en $cloud"\n   _~_   __\n  #####,####.\n ############\n *##########. \n"$end
 ;;
 
-"broken clouds")
+"broken clouds"|"overcast clouds")
 echo -en $cloud"\n   _~_   __"$end$cloud_2"~##."$end$cloud"\n  #####,####."$end$cloud_2"##,"$end$cloud"\n ############"$end$cloud_2"\#º"$end$cloud"\n *##########.\n "$end
 ;;
 
-"overcast clouds")
-echo -en $cloud"\n   _~_   __"$end$cloud_2"~##."$end$cloud"\n  #####,####."$end$cloud_2"##,"$end$cloud"\n ############"$end$cloud_2"\#º"$end$cloud"\n *##########.\n "$end
-;;
 
-"shower rain")
+"shower rain"|"light intensity shower rain"|"heavy intensity shower rain"|"ragged shower rain")
 echo -en $cloud"\n  #####,####.\n ############\n *##########."$end$rain"\n '  '.   ''  \n  ,   '  ' .\n"$end
 ;;
 
-"rain")
+"light rain"|"moderate rain"|"heavy intensity rain"|"very heavy rain"|"extreme rain")
 echo -en $sun"\n         .."$end$cloud"\n  _~######"$end$sun".."$end$cloud"\n ###########\n  '##-###* "$end$rain".\n '  '.  , ' \n  ' , .  ' .\n"$end
 ;;
 
+
+"snow"|"freezing rain")
+echo -en $snow"\n    *   *     \n  *   *  . *  \n *  '  *   *  \n  *   .   * \n   . *   *  \n "$end
+;;
+
+"mist"|"fog"|"smoke"|"haze"|"sand/dust whirls"|"sand"|"dust"|"volcanic ash"|"squalls"|"tornado")
+echo -en $cloud_2"\n    . _---_   -_\n  -~^  ~  º~~-_\n   ~ __--_  ~  ,\n  ~~*  .  ^~--_\n   ..~-__-~.._\n"$end 
+;;
+
+esac
+
+case ${wd[0]} in
 "thunderstorm")
 echo -en $cloud"\n\n ############\n  #####,###."$end$sun"\n    \\\\\ \n    //\n    \|\n"$end
 ;;
 
+"drizzle")
+echo -en $cloud"\n  #####,####.\n ############\n *##########."$end$rain"\n '  '.   ''  \n  ,   '  ' .\n"$end
+;;
+
 "snow")
 echo -en $snow"\n    *   *     \n  *   *  . *  \n *  '  *   *  \n  *   .   * \n   . *   *  \n "$end
-;;
-
-"mist")
-echo -en $cloud_2"\n    . _---_   -_\n  -~^  ~  º~~-_\n   ~ __--_  ~  ,\n  ~~*  .  ^~--_\n   ..~-__-~.._\n"$end 
-;;
-
-*)
-tput cup 6 0
 ;;
 
 esac
