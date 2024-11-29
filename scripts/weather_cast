@@ -81,4 +81,4 @@ echo -en $snow"\n    *   *     \n  *   *  . *  \n *  '  *   *  \n  *   .   * \n 
 
 esac
 
-echo 
+tput cup 7 0
