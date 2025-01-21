@@ -1,0 +1,54 @@
+#!/bin/bash
+
+help(){
+echo -e "\n\e[0;34mGooglerly : an AI paraphraser, using google's API"
+echo -e "\e[0;31m\n/!\ \e[0;33mYou shall have a google API Key saved in a environment variable named \e[0;31m\"GOOGLE_API_KEY\" \e[0m(export GOOGLE_API_KEY=\"<your_api_key>\")\e[0;33m and have jq installed \e[0m(sudo apt install -y jq)\e[0;33m.\e[0m"
+echo -e "Optionally you can pipe this output to a markdown formatter like glow (./googlerly <...> | glow -s dark)."
+echo -e "\e[0m\nWrite a promp and ,optionally, add flags:"
+echo -e "-i: Informal writing style\n-f: Formal writting style\n-a: Academic writing style\n-t: Number of paraphrases you want to recieve\n-h: see help\n"
+}
+
+
+style=""
+times="1"
+
+while [[ "$1" =~ ^- ]]; do
+    case "$1" in
+        -t)
+            shift
+            times="$1"
+            ;;
+        -i) style=", in a informal writing style";;
+        -a) style=", in a academic writing style";;
+        -f) style=", in a formal writing style";;
+        -h) help; exit 0;;
+        *)
+            shift
+            ;;
+    esac
+    shift
+done
+
+
+if [[ -z $@ ]];then
+    help
+    exit 1
+fi
+
+str="please, rewrite this text${style}, ${times} times: $*"
+
+res=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$GOOGLE_API_KEY" \
+    -H 'Content-Type: application/json' \
+    -X POST \
+    -d "{
+      \"contents\": [{
+        \"parts\": [{
+          \"text\": \"$str\"
+        }]
+      }]
+    }" | jq '.candidates[0].content.parts[0].text')
+
+
+echo
+echo -en ${res//\"}
+echo
