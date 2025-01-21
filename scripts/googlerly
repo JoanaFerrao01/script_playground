@@ -2,8 +2,7 @@
 
 help(){
 echo -e "\n\e[0;34mGooglerly : an AI paraphraser, using google's API"
-echo -e "\e[0;31m\n/!\ \e[0;33mYou shall have a google API Key saved in a environment variable named \e[0;31m\"GOOGLE_API_KEY\" \e[0m(export GOOGLE_API_KEY=\"<your_api_key>\")\e[0;33m and have jq installed \e[0m(sudo apt install -y jq)\e[0;33m.\e[0m"
-echo -e "Optionally you can pipe this output to a markdown formatter like glow (./googlerly <...> | glow -s dark)."
+echo -e "\n\e[0;31m /!\ Requirements \n\e[0;31m > \e[0;33mYou shall have a google API Key saved in a environment variable named \e[0;31m\"GOOGLE_API_KEY\" \e[0m(export GOOGLE_API_KEY=\"<your_api_key>\")\e[0;33m and have jq installed \e[0m(sudo apt install -y jq)\e[0;33m.\n\e[0;31m > \e[0;33mIf your phrase includes bash syntax special token characters, please encapsulate the phrase in quotation marks \e[0m(\"<phrase>\")\e[0;33m.\n\n > Optionally you can pipe this output to a markdown formatter like glow \e[0m(./googlerly <...> | glow -s dark)\e[0;33m.\e[0m"
 echo -e "\e[0m\nWrite a promp and ,optionally, add flags:"
 echo -e "-i: Informal writing style\n-f: Formal writting style\n-a: Academic writing style\n-t: Number of paraphrases you want to recieve\n-h: see help\n"
 }
@@ -50,5 +49,5 @@ res=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.
 
 
 echo
-echo -en ${res//\"}
+echo -en ${res//\"} | glow -s dark
 echo
