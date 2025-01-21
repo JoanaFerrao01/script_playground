@@ -49,5 +49,5 @@ res=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.
 
 
 echo
-echo -en ${res//\"} | glow -s dark
+echo -en ${res//\"}
 echo
